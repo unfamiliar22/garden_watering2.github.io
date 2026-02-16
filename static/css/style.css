@@ -1,0 +1,272 @@
+/* Основные стили для сайта умного полива */
+
+:root {
+    --primary-color: #28a745;
+    --primary-dark: #1e7e34;
+    --secondary-color: #6c757d;
+    --light-bg: #f8f9fa;
+}
+
+/* Общие стили */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Навигация */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Hero секция */
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-image {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Карточки */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.article-card {
+    border-left: 4px solid var(--primary-color) !important;
+}
+
+/* Статистика */
+.stats-section .card {
+    border-radius: 15px;
+}
+
+/* Круги шагов */
+.step-circle {
+    transition: transform 0.3s ease;
+}
+
+.step-circle:hover {
+    transform: scale(1.1);
+}
+
+/* Кнопки */
+.btn-success {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-success {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Формы */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Алерты */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Таблицы */
+.table-success {
+    background-color: #d4edda;
+}
+
+/* Футер */
+footer {
+    margin-top: auto;
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+/* Иконки в карточках */
+.card-body .bi {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-body .bi {
+    transform: scale(1.1);
+}
+
+/* Видео секция */
+.video-section .card {
+    overflow: hidden;
+}
+
+/* Django секция */
+.django-section .card {
+    border-left: 4px solid var(--primary-color);
+}
+
+/* CTA секция */
+.cta-section {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+/* Дашборд */
+.dashboard-card {
+    border: none;
+    border-radius: 15px;
+}
+
+.zone-card {
+    transition: all 0.3s ease;
+}
+
+.zone-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Бейджи */
+.badge {
+    font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-section {
+        text-align: center;
+        padding: 2rem 0;
+    }
+    
+    .hero-image {
+        margin-top: 2rem;
+    }
+    
+    .hero-image .bi {
+        font-size: 120px !important;
+    }
+    
+    .step-circle {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .step-circle .bi {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* Скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Загрузка */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Утилиты */
+.text-success {
+    color: var(--primary-color) !important;
+}
+
+.bg-success {
+    background-color: var(--primary-color) !important;
+}
+
+/* Форма входа и регистрации */
+.auth-card {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* Профиль */
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}

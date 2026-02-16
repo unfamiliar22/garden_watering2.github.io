@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление зоны - Умный полив сада{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Подтверждение удаления</h4>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <i class="bi bi-trash" style="font-size: 4rem; color: #dc3545;"></i>
+                    
+                    <h5 class="mt-3">Вы уверены, что хотите удалить зону?</h5>
+                    <p class="lead text-danger fw-bold">"{{ zone.name }}"</p>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-circle"></i>
+                        Это действие нельзя отменить. Все расписания и история поливов этой зоны также будут удалены.
+                    </div>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Да, удалить
+                            </button>
+                            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x"></i> Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

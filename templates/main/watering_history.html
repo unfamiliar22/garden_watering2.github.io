@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}История полива - Умный полив сада{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-clock-history text-success"></i> История полива</h2>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-success">
+            <i class="bi bi-arrow-left"></i> Назад к управлению
+        </a>
+    </div>
+    
+    <!-- Фильтр по зоне -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Фильтр по зоне:</label>
+                    <select name="zone" class="form-select" onchange="this.form.submit()">
+                        <option value="">Все зоны</option>
+                        {% for zone in zones %}
+                        <option value="{{ zone.id }}" {% if selected_zone == zone.id|stringformat:"s" %}selected{% endif %}>
+                            {{ zone.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <a href="{% url 'watering_history' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Сбросить
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Таблица истории -->
+    <div class="card shadow">
+        <div class="card-body p-0">
+            {% if logs %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-success">
+                        <tr>
+                            <th><i class="bi bi-calendar"></i> Дата и время</th>
+                            <th><i class="bi bi-grid-3x3"></i> Зона</th>
+                            <th><i class="bi bi-clock"></i> Длительность</th>
+                            <th><i class="bi bi-water"></i> Воды использовано</th>
+                            <th><i class="bi bi-gear"></i> Тип</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.started_at|date:"d.m.Y H:i" }}</td>
+                            <td>
+                                <span class="badge bg-success">{{ log.zone.name }}</span>
+                            </td>
+                            <td>{{ log.duration }} мин</td>
+                            <td>
+                                {% if log.water_used %}
+                                {{ log.water_used }} л
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.is_manual %}
+                                <span class="badge bg-warning text-dark">
+                                    <i class="bi bi-hand-index"></i> Ручной
+                                </span>
+                                {% else %}
+                                <span class="badge bg-info">
+                                    <i class="bi bi-calendar-check"></i> Авто
+                                </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-inbox" style="font-size: 4rem; color: #dee2e6;"></i>
+                <p class="text-muted mt-3">История полива пуста</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

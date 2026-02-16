@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% block title %}Умный полив сада - Главная{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-success mb-4">
+                    <i class="bi bi-droplet-fill"></i> Умный полив сада
+                </h1>
+                <p class="lead mb-4">
+                    Автоматизируйте полив ваших растений с помощью современной системы управления. 
+                    Экономьте воду, время и получайте здоровый урожай!
+                </p>
+                {% if user.is_authenticated %}
+                <div class="d-flex gap-3">
+                    <a href="{% url 'dashboard' %}" class="btn btn-success btn-lg">
+                        <i class="bi bi-speedometer2"></i> Перейти к управлению
+                    </a>
+                    <a href="{% url 'zone_create' %}" class="btn btn-outline-success btn-lg">
+                        <i class="bi bi-plus-circle"></i> Добавить зону
+                    </a>
+                </div>
+                {% else %}
+                <div class="d-flex gap-3">
+                    <a href="{% url 'register' %}" class="btn btn-success btn-lg">
+                        <i class="bi bi-person-plus"></i> Начать бесплатно
+                    </a>
+                    <a href="#features" class="btn btn-outline-success btn-lg">
+                        <i class="bi bi-info-circle"></i> Подробнее
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image text-center">
+                    <i class="bi bi-flower1" style="font-size: 200px; color: #28a745;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section (для авторизованных пользователей) -->
+{% if user.is_authenticated %}
+<section class="stats-section py-4 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card text-center h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="bi bi-grid-3x3-gap-fill text-success" style="font-size: 2rem;"></i>
+                        <h3 class="mt-3">{{ zones_count|default:"0" }}</h3>
+                        <p class="text-muted mb-0">Зон полива</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-check text-success" style="font-size: 2rem;"></i>
+                        <h3 class="mt-3">{{ active_schedules|default:"0" }}</h3>
+                        <p class="text-muted mb-0">Активных расписаний</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="bi bi-droplet text-success" style="font-size: 2rem;"></i>
+                        <h3 class="mt-3">{{ total_waterings|default:"0" }}</h3>
+                        <p class="text-muted mb-0">Всего поливов</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="bi bi-water text-success" style="font-size: 2rem;"></i>
+                        <h3 class="mt-3">{{ total_water|default:"0" }} л</h3>
+                        <p class="text-muted mb-0">Воды использовано</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Features Section -->
+<section id="features" class="features-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Возможности системы</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clock-history text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Автоматический полив</h4>
+                        <p class="text-muted">Настройте расписание полива один раз, и система будет работать автоматически по заданному графику.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-phone text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Удаленное управление</h4>
+                        <p class="text-muted">Управляйте поливом из любой точки мира через веб-интерфейс с компьютера или смартфона.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-graph-up text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Статистика и аналитика</h4>
+                        <p class="text-muted">Отслеживайте расход воды, историю поливов и эффективность системы в реальном времени.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-thermometer-half text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Мониторинг датчиков</h4>
+                        <p class="text-muted">Подключайте датчики влажности почвы, температуры и влажности воздуха для умного полива.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-layers text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Несколько зон</h4>
+                        <p class="text-muted">Создавайте неограниченное количество зон полива с индивидуальными настройками для каждой.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-bell text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Уведомления</h4>
+                        <p class="text-muted">Получайте уведомления о статусе системы, завершении полива и возможных проблемах.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Section -->
+<section class="video-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Полезные видео о поливе</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-play-circle text-success"></i> Автоматический полив огорода
+                        </h5>
+                        <div class="ratio ratio-16x9">
+                            <iframe 
+                                src="https://rutube.ru/play/embed/528885f06d41577181b591c51fa844d7" 
+                                frameborder="0" 
+                                allow="clipboard-write; autoplay" 
+                                webkitAllowFullScreen 
+                                mozallowfullscreen 
+                                allowFullScreen>
+                            </iframe>
+                        </div>
+                        <p class="card-text mt-3 text-muted">
+                            Обзор системы автоматического полива для огорода. Узнайте, как правильно организовать полив.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-play-circle text-success"></i> Система капельного полива
+                        </h5>
+                        <div class="ratio ratio-16x9">
+                            <iframe 
+                                src="https://rutube.ru/play/embed/a35a0780eb4ef08b75bbf4c41751da59" 
+                                frameborder="0" 
+                                allow="clipboard-write; autoplay" 
+                                webkitAllowFullScreen 
+                                mozallowfullscreen 
+                                allowFullScreen>
+                            </iframe>
+                        </div>
+                        <p class="card-text mt-3 text-muted">
+                            Подробное руководство по установке и настройке системы капельного полива.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Articles Section -->
+<section class="articles-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Полезные статьи</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm article-card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="badge bg-success">Habr</span>
+                            <span class="badge bg-secondary">IoT</span>
+                        </div>
+                        <h5 class="card-title">Автополив на Arduino</h5>
+                        <p class="card-text text-muted">
+                            Подробная инструкция по созданию системы автоматического полива на базе Arduino с подключением к интернету.
+                        </p>
+                        <a href="https://habr.com/ru/articles/955774/" target="_blank" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-box-arrow-up-right"></i> Читать статью
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm article-card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="badge bg-success">Habr</span>
+                            <span class="badge bg-secondary">DIY</span>
+                        </div>
+                        <h5 class="card-title">Умная теплица своими руками</h5>
+                        <p class="card-text text-muted">
+                            Как построить умную теплицу с автоматическим поливом, контролем температуры и удаленным управлением.
+                        </p>
+                        <a href="https://habr.com/ru/articles/916664/" target="_blank" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-box-arrow-up-right"></i> Читать статью
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm article-card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="badge bg-success">Habr</span>
+                            <span class="badge bg-secondary">Автоматизация</span>
+                        </div>
+                        <h5 class="card-title">Система умного полива</h5>
+                        <p class="card-text text-muted">
+                            Разработка полноценной системы умного полива с веб-интерфейсом, датчиками и мобильным приложением.
+                        </p>
+                        <a href="https://habr.com/ru/articles/891794/" target="_blank" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-box-arrow-up-right"></i> Читать статью
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Как это работает</h2>
+        <div class="row g-4">
+            <div class="col-md-3 text-center">
+                <div class="step-circle bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-person-plus" style="font-size: 2rem;"></i>
+                </div>
+                <h5>1. Регистрация</h5>
+                <p class="text-muted small">Создайте аккаунт и настройте ваш профиль</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="step-circle bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-grid-3x3-gap" style="font-size: 2rem;"></i>
+                </div>
+                <h5>2. Добавление зон</h5>
+                <p class="text-muted small">Создайте зоны полива для разных участков</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="step-circle bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-calendar-week" style="font-size: 2rem;"></i>
+                </div>
+                <h5>3. Настройка расписания</h5>
+                <p class="text-muted small">Установите график полива для каждой зоны</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="step-circle bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-check-circle" style="font-size: 2rem;"></i>
+                </div>
+                <h5>4. Готово!</h5>
+                <p class="text-muted small">Система работает автоматически</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Django Features Section -->
+<section class="django-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Технологии на Django</h2>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h4 class="card-title text-success">
+                            <i class="bi bi-shield-check"></i> Безопасность
+                        </h4>
+                        <p class="card-text">
+                            Django обеспечивает надежную защиту данных пользователей с встроенной системой аутентификации, 
+                            защитой от CSRF-атак, SQL-инъекций и XSS. Ваши данные о расписании полива и настройках 
+                            надежно защищены.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Шифрование паролей</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Защита сессий</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> CSRF-токены</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h4 class="card-title text-success">
+                            <i class="bi bi-database"></i> База данных SQLite
+                        </h4>
+                        <p class="card-text">
+                            Все данные хранятся в структурированной базе данных: пользователи, зоны полива, 
+                            расписания, история поливов и показания датчиков. Django ORM обеспечивает 
+                            удобную работу с данными.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Модели данных</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Миграции</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Админ-панель</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h4 class="card-title text-success">
+                            <i class="bi bi-speedometer2"></i> REST API
+                        </h4>
+                        <p class="card-text">
+                            Django предоставляет API endpoints для интеграции с аппаратным обеспечением. 
+                            Контроллер полива может отправлять данные датчиков и получать команды на полив 
+                            через HTTP-запросы.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> JSON API</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Статус зон</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Управление расписанием</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h4 class="card-title text-success">
+                            <i class="bi bi-graph-up-arrow"></i> Аналитика
+                        </h4>
+                        <p class="card-text">
+                            Django агрегирует данные о поливах, расходе воды и показаниях датчиков. 
+                            Формируется статистика эффективности системы и рекомендации по оптимизации 
+                            расхода воды.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> История поливов</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Статистика расхода</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Отчеты</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-success text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Готовы автоматизировать полив?</h2>
+        <p class="lead mb-4">
+            Присоединяйтесь к тысячам дачников, которые уже используют умный полив!
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg text-success">
+            <i class="bi bi-speedometer2"></i> Перейти к управлению
+        </a>
+        {% else %}
+        <a href="{% url 'register' %}" class="btn btn-light btn-lg text-success">
+            <i class="bi bi-person-plus"></i> Создать аккаунт бесплатно
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
